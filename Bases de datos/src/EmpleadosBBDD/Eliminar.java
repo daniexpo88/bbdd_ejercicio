@@ -16,10 +16,13 @@ public class Eliminar {
 			String url = "jdbc:mysql://localhost:3306/empleados";
 			String username = "root";
 			String password = "12345";
+			String consulta = "drop table "+tabla+";";
+			
 			con = DriverManager.getConnection(url, username, password);
 			s = con.createStatement();
-			s.executeUpdate("drop table "+tabla+";");
+			s.executeUpdate(consulta);
 			System.out.println("La tabla "+tabla+" se ha eliminado correctamente.");
+			Listar.escribirConsulta(consulta);
 			sc.close();
 			s.close();
 			con.close();
@@ -65,8 +68,10 @@ public class Eliminar {
             }
 			if	(type == Types.VARCHAR || type == Types.CHAR) {
 				s.executeUpdate("delete from "+tabla+" where "+columna+"='"+dato+"';");
+				Listar.escribirConsulta("delete from "+tabla+" where "+columna+"='"+dato+"';");
 			}else {
 				s.executeUpdate("delete from "+tabla+" where "+columna+"="+dato+";");
+				Listar.escribirConsulta("delete from "+tabla+" where "+columna+"="+dato+";"+"\n");
 			}
 			System.out.println("El registro se ha eliminado correctamente");
 			s.close();

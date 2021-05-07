@@ -36,6 +36,33 @@ public class Insertar {
 		}
 	}
 	
+	public static void insertarDepartamento() {
+		Scanner sc = new Scanner(System.in);
+		String respuesta = ".";
+		Departamentos d;
+		try {
+			while (!respuesta.equalsIgnoreCase("no")) {
+				d = new Departamentos();
+				d.setCodigo((Departamentos.getUltimoCodigo()+1));
+				System.out.print("Introduce el nombre del departamento: ");
+				d.setNombre(sc.next());
+				System.out.print("Introduce el presupuesto: ");
+				d.setPresupuesto(sc.nextDouble());
+				System.out.print("Introduce los gastos del departamento: ");
+				d.setGastos(sc.nextDouble());
+				System.out.println(d.getNombre());
+				insertar(d);
+				System.out.println("Desea continuar introduciendo departamentos(Si/no)");
+				respuesta = sc.next();
+			}
+			sc.close();
+		} catch (Exception exception) {
+			System.out.println("ERORR");
+		}
+	}
+	
+	
+	
 	private static void insertar(Empleados e) {
 		Conexion.conectar();
 		Connection con;
@@ -44,17 +71,42 @@ public class Insertar {
 			String url = "jdbc:mysql://localhost:3306/empleados";
 			String username = "root";
 			String password = "12345";
+			String consulta =	"INSERT INTO empleado VALUES(" + e.getCodigo() + ", '" + e.getNif() + "', '"
+					+ e.getNombre() + "', '" + e.getApellido1() + "', '" + e.getApellido2() + "', "
+					+ e.getCodigo_departamento() + ");";
+			
 			con = DriverManager.getConnection(url, username, password);
 			s = con.createStatement();
-			s.executeUpdate("INSERT INTO empleado VALUES(" + e.getCodigo() + ", '" + e.getNif() + "', '"
-					+ e.getNombre() + "', '" + e.getApellido1() + "', '" + e.getApellido2() + "', "
-					+ e.getCodigo_departamento() + ");");
+			s.executeUpdate(consulta);
 			System.out.println("EMPLEADO " + e.getNombre() + " CREADO");
+			Listar.escribirConsulta(consulta);
 			s.close();
 		} catch (SQLException sql) {
 			System.out.println("ERROR "+sql.getMessage());
 			sql.printStackTrace();
 		}
 
+	}
+	private static void insertar(Departamentos d) {
+		Conexion.conectar();
+		Connection con;
+		Statement s;
+		try {
+			String url = "jdbc:mysql://localhost:3306/empleados";
+			String username = "root";
+			String password = "12345";
+			String consulta = "INSERT INTO departamento VALUES(" + d.getCodigo() + ", '" +d.getNombre() + "', "
+					+ d.getPresupuesto()  + ", " + d.getGastos() + ");";
+			
+			con = DriverManager.getConnection(url, username, password);
+			s = con.createStatement();
+			s.executeUpdate(consulta);
+			System.out.println("DEPARTAMENTO " + d.getNombre() + " CREADO");
+			Listar.escribirConsulta(consulta);
+			s.close();
+		} catch (SQLException sql) {
+			System.out.println("ERROR "+sql.getMessage());
+			sql.printStackTrace();
+		}
 	}
 }

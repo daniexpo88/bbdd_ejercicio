@@ -48,6 +48,7 @@ public class Consultar {
 					pw.print(rs.getString(j) + " | ");
 				}
 			}
+			Listar.escribirConsulta(consulta);
 			if (con != null) {
 				rs.close();
 				s.close();
