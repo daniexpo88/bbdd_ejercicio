@@ -1,4 +1,4 @@
-package EmpleadosBBDD;
+package BBDD;
 
 import java.util.Scanner;
 import java.sql.*;

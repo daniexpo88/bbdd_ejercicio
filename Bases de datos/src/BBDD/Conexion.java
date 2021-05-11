@@ -1,4 +1,4 @@
-package EmpleadosBBDD;
+package BBDD;
 public class Conexion {
 	public static void conectar() {
 		try {

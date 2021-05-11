@@ -1,4 +1,4 @@
-package EmpleadosBBDD;
+package BBDD;
 
 import java.io.*;
 import java.sql.Connection;

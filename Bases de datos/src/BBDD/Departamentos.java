@@ -1,4 +1,4 @@
-package EmpleadosBBDD;
+package BBDD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
