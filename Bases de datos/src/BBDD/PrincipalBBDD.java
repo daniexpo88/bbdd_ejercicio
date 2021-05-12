@@ -6,13 +6,13 @@ public class PrincipalBBDD {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Consultar.consulta("Select * from empleado;");
+		Menu();
 	}
 	
 	static void Menu() {
-		try {
 		Scanner sc = new Scanner(System.in);
 		int resp;
+		try {
 		System.out.println("PROGRAMA BASE DE DATOS");
 		System.out.println("¿QUÉ OPERACIÓN DESEA REALIZAR?"+
 		"\n\t1.Consultar"+
@@ -58,7 +58,7 @@ public class PrincipalBBDD {
 				Listar.listarFichero();
 			break;
 		}
-
+		
 		sc.close();
 		}catch(Exception e) {
 			e.printStackTrace();
