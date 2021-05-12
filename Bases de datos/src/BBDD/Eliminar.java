@@ -32,6 +32,33 @@ public class Eliminar {
 		}
 	}
 	
+	public static boolean eliminarPorParametro(String consulta) {
+		Conexion.conectar();
+		Connection con;
+		Statement s;
+
+		
+		try {
+			String url = "jdbc:mysql://localhost:3306/empleados";
+			String username = "root";
+			String password = "12345";
+			
+			
+			con = DriverManager.getConnection(url, username, password);
+			s = con.createStatement();
+			s.executeUpdate(consulta);
+			System.out.println("Se ha eliminado correctamente.");
+			Listar.escribirConsulta(consulta);
+			s.close();
+			con.close();
+			return true;
+		}catch(SQLException sql) {
+			System.err.println("Ha habido un error al eliminar la tabla. ");
+			sql.printStackTrace();
+			return false;
+		}
+	}
+	
 	public static void eliminarRegistro() {
 		Conexion.conectar();
 		Connection con;

@@ -6,7 +6,7 @@ public class PrincipalBBDD {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Menu();
+		Consultar.consulta("Select * from empleado;");
 	}
 	
 	static void Menu() {
@@ -17,7 +17,7 @@ public class PrincipalBBDD {
 		System.out.println("¿QUÉ OPERACIÓN DESEA REALIZAR?"+
 		"\n\t1.Consultar"+
 		"\n\t2.Insertar"+
-		"\n\t3.Actualizar"+
+		"\n\t3.Update"+
 		"\n\t4.Eliminar"+
 		"\n\t5.Listar fichero con las operaciones");
 		resp = sc.nextInt();
@@ -39,7 +39,7 @@ public class PrincipalBBDD {
 			}
 			break;
 		case 3:
-			Actualizar.actualizar();
+			Update.update();
 			break;
 		case 4:
 			System.out.println("Desea eliminar \n1.Tabla \n2.Registro");

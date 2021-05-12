@@ -7,7 +7,8 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Insertar {
-	public static void insertarEmpleados() {
+	//Método que recoge los datos de nuevos empleados mediante la introducción de los parámetros por teclado.
+	public static boolean insertarEmpleados() {
 		Scanner sc = new Scanner(System.in);
 		String respuesta = ".";
 		Empleados e;
@@ -29,14 +30,20 @@ public class Insertar {
 				insertar(e);
 				System.out.println("Desea continuar introduciendo empleados(Si/no)");
 				respuesta = sc.next();
+				Consultar.consulta("Select * from empleado where codigo='"+e.getCodigo()+"';");
+				sc.close();
+				return true;
 			}
 			sc.close();
 		} catch (Exception exception) {
-			System.out.println("ERORR");
+			System.err.println("ERORR EN INSERT "+exception.getMessage());
+			return false;
 		}
+		return false;
 	}
 	
-	public static void insertarDepartamento() {
+	//Método que recoge los datos de nuevos departamentos en la BBDD mediante la introducción de los parámetros por teclado.
+	public static boolean insertarDepartamento() {
 		Scanner sc = new Scanner(System.in);
 		String respuesta = ".";
 		Departamentos d;
@@ -54,15 +61,21 @@ public class Insertar {
 				insertar(d);
 				System.out.println("Desea continuar introduciendo departamentos(Si/no)");
 				respuesta = sc.next();
+				Consultar.consulta("Select * from departamento where codigo='"+d.getCodigo()+"';");
+				sc.close();
+				return true;
 			}
-			sc.close();
 		} catch (Exception exception) {
-			System.out.println("ERORR");
+			sc.close();
+			System.err.println("ERORR EN INSERT "+exception.getMessage());
+			return false;
 		}
+		sc.close();
+		return false;
 	}
 	
 	
-	
+	//Método que inserta los empleados en la BBDD, además escribe la consulta en el fichero operaciones.txt
 	private static void insertar(Empleados e) {
 		Conexion.conectar();
 		Connection con;
@@ -82,11 +95,12 @@ public class Insertar {
 			Listar.escribirConsulta(consulta);
 			s.close();
 		} catch (SQLException sql) {
-			System.out.println("ERROR "+sql.getMessage());
+			System.err.println("ERROR en INSERT "+sql.getMessage());
 			sql.printStackTrace();
 		}
-
 	}
+	
+	//Método que inserta los departamentos en la BBDD además escribe la consulta en el fichero operaciones.txt
 	private static void insertar(Departamentos d) {
 		Conexion.conectar();
 		Connection con;
@@ -105,7 +119,7 @@ public class Insertar {
 			Listar.escribirConsulta(consulta);
 			s.close();
 		} catch (SQLException sql) {
-			System.out.println("ERROR "+sql.getMessage());
+			System.err.println("ERROR en INSERT "+sql.getMessage());
 			sql.printStackTrace();
 		}
 	}
